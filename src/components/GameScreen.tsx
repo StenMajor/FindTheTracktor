@@ -1,6 +1,7 @@
 
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Level } from '../types';
+import { levels } from '../gameLogic';
 import { Oopsie, Celebration, Ripple } from './FeedbackAnimations';
 
 interface GameScreenProps {
@@ -70,12 +71,22 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
   }, [isCelebrating, addRipple]);
 
   const { x, y, width, height } = level.tractorBoundingBox;
+  const totalLevels = levels.length;
+  const progressPercentage = (level.id / totalLevels) * 100;
 
   return (
     <div className="w-full h-full bg-gray-800 flex flex-col items-center justify-center select-none p-2">
-      <div className="absolute top-4 left-4 z-10">
-        <div className="bg-black bg-opacity-70 text-white font-bold py-2 px-4 rounded-lg shadow-md text-xl font-fredoka">
-          {`Level ${level.id}`}
+      <div className="absolute top-4 left-4 right-4 z-10">
+        <div className="flex items-center justify-between gap-4">
+          <div className="bg-black bg-opacity-70 text-white font-bold py-2 px-4 rounded-lg shadow-md text-xl font-fredoka">
+            {`Level ${level.id} of ${totalLevels}`}
+          </div>
+          <div className="flex-grow bg-gray-700 rounded-full h-4 shadow-inner">
+            <div
+              className="bg-yellow-400 h-4 rounded-full transition-all duration-500 ease-out"
+              style={{ width: `${progressPercentage}%` }}
+            />
+          </div>
         </div>
       </div>
 

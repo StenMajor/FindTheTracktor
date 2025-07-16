@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { GameState } from './types';
-import { levels } from './gameData';
+import { levels } from './gameLogic';
 import WelcomeScreen from './components/WelcomeScreen';
 import GameScreen from './components/GameScreen';
 import { TractorIcon } from './components/icons';
