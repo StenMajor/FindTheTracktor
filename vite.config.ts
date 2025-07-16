@@ -2,10 +2,11 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  root: 'src', // 👈 Vite startet im src-Ordner
+  base: "/FindTheTracktor/",   // 👈 wichtig für GitHub Pages
+  root: 'src',                 // 👈 dein Projekt startet in src/
   plugins: [react()],
   build: {
-    outDir: '../dist',      // 👈 Output-Verzeichnis (außerhalb von src)
-    emptyOutDir: true       // 👈 Löscht dist vorher
+    outDir: '../dist',         // 👈 das Output-Verzeichnis (außerhalb src)
+    emptyOutDir: true
   }
 })
