@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Find The Tractor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      html, body, #root {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevents scrollbars on the main container */
+      }
+      body {
+        font-family: 'Nunito', sans-serif;
+        /* Prevent annoying pull-to-refresh and other gestures on the game image */
+        touch-action: none;
+      }
+      .font-fredoka {
+        font-family: 'Fredoka One', cursive;
+      }
+      /* Custom animation for the "Oops" message */
+      @keyframes pop-out {
+        0%, 100% { transform: scale(0.5); opacity: 0; }
+        20%, 80% { transform: scale(1.1); opacity: 1; }
+        100% { transform: scale(0.5); opacity: 0; }
+      }
+      .animate-pop-out {
+        animation: pop-out 1s ease-in-out forwards;
+      }
+      /* Ripple effect for clicks */
+      @keyframes ripple-effect {
+        to {
+          transform: translate(-50%, -50%) scale(4);
+          opacity: 0;
+        }
+      }
+      .animate-ripple {
+        animation: ripple-effect 0.6s ease-out forwards;
+      }
+      /* Simple firework burst animation */
+      @keyframes burst {
+        0% { transform: scale(0); opacity: 1; }
+        100% { transform: scale(3); opacity: 0; }
+      }
+      .firework {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: #FFD700;
+        border-radius: 50%;
+        animation: burst 0.8s ease-out forwards;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
