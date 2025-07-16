@@ -75,7 +75,7 @@ export const Oopsie: React.FC<OopsieProps> = ({ position }) => {
       className="absolute text-5xl font-fredoka text-red-500 bg-white/70 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg animate-pop-out select-none pointer-events-none z-30"
       style={style}
     >
-      OOPS!
+      😢
     </div>
   );
 };
@@ -121,7 +121,7 @@ export const Celebration: React.FC = () => {
        ))}
       <div className="text-center">
         <h1 className="text-7xl md:text-9xl font-fredoka text-yellow-300 animate-pulse drop-shadow-lg" style={{ animationDuration: '1.5s' }}>
-          WOOW!
+          😊
         </h1>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { Level } from './types';
 export const levels: Level[] = [
   {
     id: 1,
-    imageSrc: 'https://i.ibb.co/7xFQr4Jh/lv1.png', // Winter Scene
+    imageSrc: '/images/lv1.png', // Winter Scene
     tractorBoundingBox: {
       x: 26.67,
       y: 29.16,
@@ -13,7 +13,7 @@ export const levels: Level[] = [
   },
   {
     id: 2,
-    imageSrc: 'https://i.ibb.co/pj8jhZXN/lv2.png', // Green Cornfield
+    imageSrc: '/images/lv2.png', // Green Cornfield
     tractorBoundingBox: {
       x: 23.67,
       y: 24.93,
@@ -23,7 +23,7 @@ export const levels: Level[] = [
   },
   {
     id: 3,
-    imageSrc: 'https://i.ibb.co/KpzKTRKZ/lv3.png', // Yellow Hayfield
+    imageSrc: '/images/lv3.png', // Yellow Hayfield
     tractorBoundingBox: {
       x: 69.33,
       y: 4.49,
