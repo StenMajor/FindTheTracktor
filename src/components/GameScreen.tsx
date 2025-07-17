@@ -18,6 +18,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
   const gameAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log("🔍 Lade Bild:", level.imageSrc);
     setImageStatus('loading');
     setImageDimensions(null);
     setRipples([]);
@@ -26,10 +27,13 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
     const img = new Image();
     img.src = level.imageSrc;
     img.onload = () => {
+      console.log("✅ Bild geladen:", img.src);
       setImageDimensions({ width: img.naturalWidth, height: img.naturalHeight });
       setImageStatus('loaded');
     };
-    img.onerror = () => setImageStatus('error');
+    img.onerror = (err) => {
+    console.error("❌ Bild konnte nicht geladen werden:", img.src, err);
+    setImageStatus('error');
   }, [level.imageSrc]);
 
   const getRelativeClickPosition = (event: React.MouseEvent) => {
