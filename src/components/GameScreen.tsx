@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Level } from '../types';
 import { levels } from '../gameLogic';
@@ -24,6 +23,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
     setRipples([]);
     setMissPosition(null);
     setIsCelebrating(false);
+
     const img = new Image();
     img.src = level.imageSrc;
     img.onload = () => {
@@ -32,9 +32,10 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
       setImageStatus('loaded');
     };
     img.onerror = (err) => {
-    console.error("❌ Bild konnte nicht geladen werden:", img.src, err);
-    setImageStatus('error');
-  }, [level.imageSrc]);
+      console.error("❌ Bild konnte nicht geladen werden:", img.src, err);
+      setImageStatus('error');
+    };
+  }, [level.imageSrc]); // 👈 HIER war der Fehler (fehlendes })
 
   const getRelativeClickPosition = (event: React.MouseEvent) => {
     if (!gameAreaRef.current) return null;
@@ -49,7 +50,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
     setRipples(currentRipples => [...currentRipples, newRipple]);
     setTimeout(() => {
       setRipples(currentRipples => currentRipples.filter(r => r.id !== newRipple.id));
-    }, 600); // Animation duration in ms
+    }, 600);
   }, []);
 
   const handleHit = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
@@ -57,18 +58,18 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
     if (isCelebrating) return;
     const pos = getRelativeClickPosition(event);
     if (pos) addRipple(pos.x, pos.y);
-    
+
     setIsCelebrating(true);
     setTimeout(() => {
       onWin();
     }, 2500);
   }, [isCelebrating, onWin, addRipple]);
-  
+
   const handleMiss = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     if (isCelebrating) return;
     const pos = getRelativeClickPosition(event);
     if (!pos) return;
-    
+
     addRipple(pos.x, pos.y);
     setMissPosition({ x: pos.x, y: pos.y });
     setTimeout(() => setMissPosition(null), 1000);
@@ -107,14 +108,12 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
           className="relative max-w-full max-h-full"
           ref={gameAreaRef}
         >
-          {/* SVG Spacer to maintain aspect ratio */}
           <svg viewBox={`0 0 ${imageDimensions.width} ${imageDimensions.height}`} className="block w-full" style={{ height: 'auto' }} />
           <div
             className="absolute inset-0 bg-contain bg-no-repeat bg-center"
             style={{ backgroundImage: `url(${level.imageSrc})` }}
             onClick={handleMiss}
           >
-            {/* Clickable tractor area */}
             <div
               className="absolute cursor-pointer"
               style={{
@@ -124,12 +123,10 @@ const GameScreen: React.FC<GameScreenProps> = ({ level, onWin }) => {
               title="Click the tractor!"
             />
 
-            {/* Render animations inside the game area */}
             {ripples.map(ripple => <Ripple key={ripple.id} position={{ x: ripple.x, y: ripple.y }} />)}
             {missPosition && <Oopsie position={missPosition} />}
             {isCelebrating && (
               <>
-                {/* Spotlight effect using 4 divs for cross-browser compatibility */}
                 <div className="absolute top-0 left-0 w-full bg-black/80 pointer-events-none" style={{ height: `${y}%` }} />
                 <div className="absolute bottom-0 left-0 w-full bg-black/80 pointer-events-none" style={{ height: `${100 - (y + height)}%` }} />
                 <div className="absolute left-0 bg-black/80 pointer-events-none" style={{ top: `${y}%`, height: `${height}%`, width: `${x}%` }} />
