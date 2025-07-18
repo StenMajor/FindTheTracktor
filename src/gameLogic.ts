@@ -31,4 +31,14 @@ export const levels: Level[] = [
       height: 12.67,
     },
   },
+  {
+    id: 4,
+    imageSrc: "/FindTheTracktor/images/lv4.png",
+    tractorBoundingBox: {
+      x: 30.00,
+      y: 40.00,
+      width: 40.00,
+      height: 30.00,
+    },
+  },
 ];
