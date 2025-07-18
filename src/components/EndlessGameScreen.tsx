@@ -75,7 +75,16 @@ const EndlessGameScreen: React.FC<EndlessGameScreenProps> = ({ onWin, levelCount
       </div>
 
       {imageStatus === 'loading' && <div className="text-white font-fredoka text-2xl animate-pulse">Loading Level...</div>}
-      {imageStatus === 'error' && <div className="text-red-500">Error loading images.</div>}
+      {imageStatus === 'error' && (
+        <div className="w-11/12 max-w-lg bg-red-100 border-4 border-dashed border-red-400 rounded-lg p-6 text-center text-red-900 shadow-lg">
+          <h3 className="font-fredoka text-3xl mb-4">Error Loading Images</h3>
+          <p>Could not load the images for this level. Please check the URLs:</p>
+          <ul className="text-left mt-4">
+            <li><strong>Background:</strong> {backgroundImage}</li>
+            <li><strong>Tractor:</strong> {tractorImage}</li>
+          </ul>
+        </div>
+      )}
 
       {imageStatus === 'loaded' && (
         <div
