@@ -17,33 +17,33 @@ const EndlessGameScreen: React.FC<EndlessGameScreenProps> = ({ onWin, levelCount
   const [tractorPosition, setTractorPosition] = useState({ x: 50, y: 50 });
   const gameAreaRef = useRef<HTMLDivElement>(null);
 
-  const setupLevel = useCallback(() => {
-    setImageStatus('loading');
-    const randomBg = getRandomElement(backgroundImages);
-    const randomTractor = getRandomElement(tractorImages);
-
-    setBackgroundImage(randomBg);
-    setTractorImage(randomTractor);
-
-    // Position tractor randomly
-    const x = Math.random() * 80; // 0 to 80% of width
-    const y = Math.random() * 70; // 0 to 70% of height, to avoid sky
-    setTractorPosition({ x, y });
-
-    // Preload images
-    const bgImg = new Image();
-    bgImg.src = randomBg;
-    const tractorImg = new Image();
-    tractorImg.src = randomTractor;
-
-    Promise.all([bgImg.decode(), tractorImg.decode()])
-      .then(() => setImageStatus('loaded'))
-      .catch(() => setImageStatus('error'));
-  }, []);
-
   useEffect(() => {
+    const setupLevel = () => {
+      setImageStatus('loading');
+      const randomBg = getRandomElement(backgroundImages);
+      const randomTractor = getRandomElement(tractorImages);
+
+      setBackgroundImage(randomBg);
+      setTractorImage(randomTractor);
+
+      // Position tractor randomly
+      const x = Math.random() * 80; // 0 to 80% of width
+      const y = Math.random() * 70; // 0 to 70% of height, to avoid sky
+      setTractorPosition({ x, y });
+
+      // Preload images
+      const bgImg = new Image();
+      bgImg.src = randomBg;
+      const tractorImg = new Image();
+      tractorImg.src = randomTractor;
+
+      Promise.all([bgImg.decode(), tractorImg.decode()])
+        .then(() => setImageStatus('loaded'))
+        .catch(() => setImageStatus('error'));
+    };
+
     setupLevel();
-  }, [levelCount, setupLevel]);
+  }, [levelCount]);
 
   const handleHit = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
@@ -52,9 +52,8 @@ const EndlessGameScreen: React.FC<EndlessGameScreenProps> = ({ onWin, levelCount
     setTimeout(() => {
       onWin();
       setIsCelebrating(false);
-      setupLevel();
     }, 2500);
-  }, [isCelebrating, onWin, setupLevel]);
+  }, [isCelebrating, onWin]);
 
   const handleMiss = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     if (isCelebrating) return;
