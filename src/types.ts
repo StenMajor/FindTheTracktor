@@ -5,6 +5,11 @@ export enum GameState {
   ALL_LEVELS_COMPLETE,
 }
 
+export enum GameMode {
+  CLASSIC,
+  ENDLESS,
+}
+
 // Bounding box coordinates are percentages (0-100) of the image's dimensions.
 // (x, y) is the top-left corner of the box.
 export interface BoundingBox {

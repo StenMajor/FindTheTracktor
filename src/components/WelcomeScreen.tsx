@@ -1,7 +1,8 @@
 import React from 'react';
+import { GameMode } from '../types';
 
 interface WelcomeScreenProps {
-  onPlay: () => void;
+  onPlay: (mode: GameMode) => void;
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onPlay }) => {
@@ -9,14 +10,23 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onPlay }) => {
 
   return (
     <div
-      className="w-full h-full cursor-pointer bg-black bg-contain bg-no-repeat bg-center flex flex-col items-center justify-end p-8"
+      className="w-full h-full bg-black bg-contain bg-no-repeat bg-center flex flex-col items-center justify-center p-8"
       style={{ backgroundImage: `url(${imageUrl})` }}
-      onClick={onPlay}
-      title="Click to start"
     >
-      <p className="text-white text-2xl font-fredoka drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] animate-pulse">
-        Click anywhere to start
-      </p>
+      <div className="flex flex-col items-center">
+        <button
+          onClick={() => onPlay(GameMode.CLASSIC)}
+          className="bg-yellow-400 text-gray-800 font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform text-2xl font-fredoka mb-4"
+        >
+          Classic
+        </button>
+        <button
+          onClick={() => onPlay(GameMode.ENDLESS)}
+          className="bg-green-400 text-gray-800 font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform text-2xl font-fredoka"
+        >
+          Endless
+        </button>
+      </div>
     </div>
   );
 };
