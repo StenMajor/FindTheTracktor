@@ -3,7 +3,7 @@ import { GameState, GameMode } from './types';
 import { levels } from './gameLogic';
 import WelcomeScreen from './components/WelcomeScreen';
 import GameScreen from './components/GameScreen';
-// import EndlessGameScreen from './components/EndlessGameScreen';
+import EndlessGameScreen from './components/EndlessGameScreen';
 import { TractorIcon } from './components/icons';
 
 const AllLevelsCompleteScreen: React.FC<{ onPlayAgain: () => void }> = ({ onPlayAgain }) => (
@@ -62,15 +62,14 @@ const App: React.FC = () => {
               onWin={handleLevelComplete}
             />
           );
+        } else {
+          return (
+            <EndlessGameScreen
+              onWin={handleLevelComplete}
+              levelCount={endlessLevelCount}
+            />
+          );
         }
-        // else {
-        //   return (
-        //     <EndlessGameScreen
-        //       onWin={handleLevelComplete}
-        //       levelCount={endlessLevelCount}
-        //     />
-        //   );
-        // }
       case GameState.ALL_LEVELS_COMPLETE:
         return <AllLevelsCompleteScreen onPlayAgain={handlePlayAgain} />;
       case GameState.WELCOME:
